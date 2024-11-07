@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foodie - Smart Restaurant Experience</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.12.2/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/2.0.0/ml5.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
@@ -507,42 +508,42 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script>
-        // Ensure ml5 is loaded before using it
-        document.addEventListener('DOMContentLoaded', (event) => {
-            if (typeof ml5 !== 'undefined') {
-                console.log('ml5 library is loaded');
-                initML5();
-            } else {
-                console.error('ml5 library is not loaded');
-            }
+       document.addEventListener('DOMContentLoaded', () => {
+    if (typeof ml5 !== 'undefined') {
+        console.log('ml5 library is loaded');
+        initML5();
+    } else {
+        console.error('ml5 library is not loaded');
+    }
+});
+
+function initML5() {
+    // Ensure classifier is declared at the top for scope access
+    let classifier;
+
+    // Load MobileNet model
+    ml5.imageClassifier('MobileNet')
+        .then(loadedClassifier => {
+            classifier = loadedClassifier;
+            console.log('MobileNet model loaded');
+            // You can now use the classifier for predictions or image classification
+        })
+        .catch(err => {
+            console.error('Error loading model:', err);
         });
+}
 
-        function initML5() {
-            // ML5.js image classification
-            let classifier;
-
-            ml5.imageClassifier('MobileNet')
-                .then(loadedClassifier => {
-                    classifier = loadedClassifier;
-                    console.log('Model loaded');
-                })
-                .catch(err => {
-                    console.error('Error loading model:', err);
-                });
-
-            // ... (rest of the ML5 related code)
-        }
 
         // Menu items
         const menuItems = [
-            { name: 'Classic Burger', price: 10.99, image: 'https://source.unsplash.com/500x400/?burger' },
-            { name: 'Margherita Pizza', price: 12.99, image: 'https://source.unsplash.com/500x400/?pizza' },
-            { name: 'Caesar Salad', price: 8.99, image: 'https://source.unsplash.com/500x400/?salad' },
-            { name: 'Grilled Salmon', price: 15.99, image: 'https://source.unsplash.com/500x400/?salmon' },
-            { name: 'Chicken Tacos', price: 9.99, image: 'https://source.unsplash.com/500x400/?tacos' },
-            { name: 'Vegetarian Pasta', price: 11.99, image: 'https://source.unsplash.com/500x400/?pasta' },
-            { name: 'Sushi Platter', price: 18.99, image: 'https://source.unsplash.com/500x400/?sushi' },
-            { name: 'Steak Frites', price: 19.99, image: 'https://source.unsplash.com/500x400/?steak' }
+            { name: 'Classic Burger', price: 10.99, image: 'https://img.freepik.com/free-photo/delicious-burger-with-many-ingredients-isolated-white-background-tasty-cheeseburger-splash-sauce_90220-1266.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Margherita Pizza', price: 12.99, image: 'https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Caesar Salad', price: 8.99, image: 'https://img.freepik.com/free-photo/salad-vegetables-corn-capus-greens-table_140725-9975.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Grilled Salmon', price: 15.99, image: 'https://img.freepik.com/free-photo/slice-grilled-salmon_144627-11114.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Chicken Tacos', price: 9.99, image: 'https://img.freepik.com/premium-photo/tacos-with-crispy-chicken-parsley-cheese-chili-peppers-white-background-top-view_89816-8172.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Vegetarian Pasta', price: 11.99, image: 'https://img.freepik.com/free-photo/side-view-penne-pasta-with-tomato-sauce-greens-plate_141793-5043.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Sushi Platter', price: 18.99, image: 'https://img.freepik.com/premium-photo/sushi-set-served-black-stone-tray_79762-8634.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' },
+            { name: 'Steak Frites', price: 19.99, image: 'https://img.freepik.com/premium-photo/dish-with-grilled-steak-french-fries_434193-1256.jpg?ga=GA1.1.359886306.1717564240&semt=ais_hybrid' }
         ];
 
         // Populate menu
